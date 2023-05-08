@@ -1,10 +1,8 @@
 version: '3.5'
 services:
      
-
-
     app:
-        image: strm/helloworld-http
+        image: strm/helloworld-http #VERSION
         networks:
           - backend
         labels:  
@@ -12,7 +10,9 @@ services:
           - "traefik.http.routers.app.rule=HostRegexp(`{any:.+}`)"
           - "traefik.http.services.app.loadbalancer.server.port=80"
           - "discoveryzone=backend"
-
+        environment:
+          JAEGER_AGENT_HOST: "jaeger"
+          JAEGER_AGENT_PORT: "6831"
 
 networks:
     backend:
