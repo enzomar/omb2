@@ -6,8 +6,8 @@ services:
     build: ./nginx
     container_name: "global_revproxy"
     volumes:
-      - ./revproxy/log/global_revproxy:/var/log/nginx
-      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./log/global_revproxy:/var/log/nginx
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
     restart: always
     ports:
       - "5050:80" 
@@ -16,7 +16,6 @@ services:
       - be_revproxy
     networks:
       - revproxy
-  
 
   fe_revproxy:
     image: traefik:v2.10

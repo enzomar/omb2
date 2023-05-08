@@ -6,10 +6,10 @@ defaultEntryPoints = ["http"]
 
 
 [log]
-  filePath = "/var/log/traefik_backend.log"
+  filePath = "/var/log/traefik.log"
 
 [accessLog]
-  filePath = "/var/log/access_backend.log"
+  filePath = "/var/log/access.log"
 
 
 [api]

@@ -6,10 +6,10 @@ defaultEntryPoints = ["http"]
 
 
 [log]
-  filePath = "/var/log/traefik_frontend.log"
+  filePath = "/var/log/traefik.log"
 
 [accessLog]
-  filePath = "/var/log/access_frontend.log"
+  filePath = "/var/log/access.log"
 
 
 [api]
@@ -20,14 +20,6 @@ defaultEntryPoints = ["http"]
 attempts = 3
 maxMem = 3
 
-
-[tracing]
-  servicename = "tracing"
-  [tracing.jaeger]
-    samplingParam = 1.0
-    samplingServerURL = "http://jaeger:5778/sampling"
-    samplingType = "const"
-    localAgentHostPort = "jaeger:6831"
 
 [http.middlewares]
   [http.middlewares.test-replacepath.replacePath]
