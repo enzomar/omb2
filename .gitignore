@@ -1,0 +1,7 @@
+*/fs
+*/log
+*/blue
+*/green
+!*.keep
+.bkp
+.DS_Store

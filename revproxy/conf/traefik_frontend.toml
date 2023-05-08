@@ -1,0 +1,44 @@
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":3000"
+
+
+[log]
+  filePath = "/var/log/traefik_frontend.log"
+
+[accessLog]
+  filePath = "/var/log/access_frontend.log"
+
+
+[api]
+  dashboard = true
+  insecure = true
+
+[retry]
+attempts = 3
+maxMem = 3
+
+
+[tracing]
+  servicename = "tracing"
+  [tracing.jaeger]
+    samplingParam = 1.0
+    samplingServerURL = "http://jaeger:5778/sampling"
+    samplingType = "const"
+    localAgentHostPort = "jaeger:6831"
+
+[http.middlewares]
+  [http.middlewares.test-replacepath.replacePath]
+    path = "/api"
+
+[providers.docker]
+    constraints = "Label(`discoveryzone`,`frontend`)"
+
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "docker.localhost"
+watch = true
+exposedbydefault = false

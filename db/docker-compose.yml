@@ -1,0 +1,44 @@
+version: "3.5"
+services:
+  mysql:
+    image: mysql:8.0.30
+    container_name: "mysql"
+    restart: unless-stopped
+    expose:
+      - 3306:3306
+    volumes:
+      - ./fs/mysql:/var/lib/mysql
+      - ./conf/master.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=S3cret
+      - MYSQL_USER=my_db_user
+      - MYSQL_DATABASE=my_db
+      - MYSQL_PASSWORD=S3cret
+    networks:
+      - backend
+  mysql_slave:
+    image: mysql:8.0.30
+    container_name: "mysql_slave"
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    expose:
+      - 3307:3306
+    volumes:
+      - ./fs/mysql_slave:/var/lib/mysql
+      - ./conf/slave.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=S3cret
+      - MYSQL_USER=my_db_user
+      - MYSQL_DATABASE=my_db
+      - MYSQL_PASSWORD=S3cret
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    name: backend
+
+
+
